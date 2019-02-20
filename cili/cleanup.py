@@ -231,7 +231,7 @@ def adjust_eyelink_recov_idxs(samples, events, z_thresh=.1, window=1000, kernel_
     dfs = np.gradient(samples[field].values)
     reversed_dfs = dfs[::-1]
 #    reversed_dfs_ravg = np.array(pd.rolling_mean(pd.Series(reversed_dfs),window=kernel_size, min_periods=1))
-    reversed_dfs_ravg = np.array(pd.DataFrame(reversed_dfs).rolling(kernel_size).mean())
+    reversed_dfs_ravg = np.array(pd.DataFrame(reversed_dfs).rolling(window=kernel_size,min_periods=1).mean())
     dfs_ravg = reversed_dfs_ravg[::-1]
     dfs_ravg = np.abs((dfs_ravg-np.mean(dfs_ravg))/np.std(dfs_ravg))
     samp_count = len(samples)
